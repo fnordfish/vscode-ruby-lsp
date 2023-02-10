@@ -48,6 +48,10 @@ export default class Client {
       },
     };
 
+    const workerCount = vscode.workspace
+      .getConfiguration("rubyLsp")
+      .get("workerCount");
+
     this.serverOptions = {
       run: executable,
       debug: executable,
@@ -60,6 +64,7 @@ export default class Client {
       revealOutputChannelOn: RevealOutputChannelOn.Never,
       initializationOptions: {
         enabledFeatures: this.listOfEnabledFeatures(),
+        workerCount,
       },
       middleware: {
         provideOnTypeFormattingEdits: async (
@@ -181,6 +186,10 @@ export default class Client {
       if (event.affectsConfiguration("rubyLsp")) {
         this.clientOptions.initializationOptions.enabledFeatures =
           this.listOfEnabledFeatures();
+
+        this.clientOptions.initializationOptions.workerCount = vscode.workspace
+          .getConfiguration("rubyLsp")
+          .get("workerCount");
 
         // Re-activate Ruby if the version manager changed
         if (event.affectsConfiguration("rubyLsp.rubyVersionManager")) {

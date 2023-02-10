@@ -136,6 +136,11 @@
           "description": "Use YJIT to speed up the Ruby LSP server",
           "type": "boolean",
           "default": true
+        },
+        "rubyLsp.workerCount": {
+          "description": "Number of parallel workers. Defaults to 4",
+          "type": "number",
+          "default": 4
         }
       }
     },
